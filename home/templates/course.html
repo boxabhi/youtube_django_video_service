@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+{% block start %}
+
+<div class="container">
+    <img src="/media/{{course.course_image}}" class="card-img-top p-5 img-fluid img-centered img-responsive" style="height:300px;width:400px">
+
+    <h3>{{course.course_name}}</h3>
+
+    <p>{{course.course_description | safe}}</p>
+
+    <!-- <div class="accordion" id="accordionExample">
+
+    {% for course_module in course_modules %}
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="headingOne">
+            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+              Accordion Item #1
+            </button>
+          </h2>
+          <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+            <div class="accordion-body">
+              <strong>This is the first item's accordion body.</strong> It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
+            </div>
+          </div>
+        </div>
+     
+    
+     
+      {% endfor %}
+    </div> -->
+
+        {% for course_module in course_modules %}
+    <div class="accordion" id="accordion-{{forloop.counter}}">
+
+        <div class="card">
+          <div class="card-header" id="headingOne">
+            <h2 class="mb-0">
+              <button class="btn btn-link" type="button" data-toggle="collapse" 
+              data-target="#collapse-{{forloop.counter}}" aria-expanded="true" aria-controls="collapseOne">
+               {{course_module.course_module_name}} 
+               {% if course_module.can_view %}
+               <span class="badge badge-success">Can Watch</span>
+               {% else %}
+               <span class="badge badge-info">Become pro to watch</span>
+                {% endif %}
+
+
+              </button>
+            </h2>
+          </div>
+      
+          <div id="collapse-{{forloop.counter}}" class="collapse show" 
+          aria-labelledby="headingOne" data-parent="#accordion-{{forloop.counter}}">
+            <div class="card-body">
+                {{course_module.course_description|safe}}
+                {% if course_module.can_view %}
+                <div class="embed-responsive embed-responsive-16by9" style="height:200px;width:300px">
+                    <iframe class="embed-responsive-item" src="{{course_module.video_url}}" ></iframe>
+                  </div>
+                  {% endif %}
+            </div>
+          </div>
+        </div>
+    </div>
+
+        {% endfor %}
+
+
+</div>
+
+
+
+{% endblock %}

@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block start %}
+
+
+
+<div class="container mt-5 pt-5">
+    <h3>Register</h3>
+    <form class="mx-auto" method="post" >
+        {% csrf_token %}
+        <div class="col-md-6 form-group">
+            <label>Enter username</label>
+            <input type="text" name="username" required class="form-control" placeholder="Enter username">
+            
+        </div>
+        <div class="col-md-6 form-group">
+            <label>Enter password</label>
+            <input type="password" name="password" required class="form-control" placeholder="Enter password">
+            
+        </div>
+        <div class="col-md-6 form-group">
+        <button class="btn btn-primary btn-block">Login</button>
+    </div>
+    </form>
+</div>
+
+
+
+
+
+
+
+{% endblock %}
